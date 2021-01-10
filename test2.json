@@ -1,0 +1,10 @@
+
+{
+    "name": "bar",
+    "age": 27,
+    "remarks": [
+    "bar",
+    "foo",
+    "foobar"
+    ]
+}
