@@ -1,5 +1,5 @@
-module github.com/kaseiaoki/ji7
+module github.com/kaseiaoki/i7
 
 go 1.15
 
-require github.com/sergi/go-diff v1.1.0 // indirect
+require github.com/sergi/go-diff v1.1.0
