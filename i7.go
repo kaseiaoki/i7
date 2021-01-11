@@ -7,9 +7,10 @@ import (
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"io/ioutil"
 	"log"
-	"os"
 	"path/filepath"
 )
+
+var gopherType string
 
 var l bool
 var h bool
@@ -22,9 +23,11 @@ func init() {
 
 func main() {
 	flag.Parse()
+	flag.NArg()
 	// defalt arguments
-	fa := os.Args[1]
-	fb := os.Args[2]
+	fargs := flag.Args()
+	fa := fargs[0]
+	fb := fargs[1]
 
 	if len(fa) <= 0 && len(fb) <= 0 {
 		fmt.Println("Default arguments are two string value that is path for json file.")
