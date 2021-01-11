@@ -11,25 +11,29 @@ import (
 	"path/filepath"
 )
 
-func main() {
+var gopherType string
 
+
+var l bool
+var h bool
+// hex mode flag
+func init() {
+	flag.BoolVar(&l,"line", false, "line mode")
+	flag.BoolVar(&h, "hex", false, "line mode")
+}
+
+
+func main() {
 	flag.Parse()
 	// defalt arguments
 	fa := os.Args[1]
 	fb := os.Args[2]
+	
 
 	if len(fa) <= 0 && len(fb) <= 0 {
 		fmt.Println("Default arguments are two string value that is path for json file.")
 		return
 	}
-	// opiton arguments
-	fs := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
-	var (
-		// hex mode flag
-		l = fs.Bool("line", false, "line mode")
-		h = fs.Bool("hex", false, "hex mode")
-	)
-	fs.Parse(os.Args[3:])
 
 	// file a, file b
 	a, err := readfile(filepath.FromSlash(fa))
@@ -40,8 +44,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(*h, *l, os.Args[3:])
-	diff(a, b, *h, *l)
+	
+	diff(a, b, h, l)
 
 }
 
@@ -75,17 +79,17 @@ func diff(a []byte, b []byte, h bool, l bool) {
 
 }
 
-func filediff(a, b string) {
+func filediff(a , b string){
 	dmp := diffmatchpatch.New()
 
 	diffs := dmp.DiffMain(a, b, false)
 	fmt.Println(dmp.DiffPrettyText(diffs))
 }
 
-func linediff(a, b string) {
-	dmp := diffmatchpatch.New()
-	a, b, c := dmp.DiffLinesToChars(a, b)
-	diffs := dmp.DiffMain(a, b, false)
-	result := dmp.DiffCharsToLines(diffs, c)
-	fmt.Println(result)
+func linediff(a , b string)  {
+    dmp := diffmatchpatch.New()
+    a, b, c := dmp.DiffLinesToChars(a, b)
+    diffs := dmp.DiffMain(a, b, false)
+    result := dmp.DiffCharsToLines(diffs, c)
+    fmt.Println(result)
 }
