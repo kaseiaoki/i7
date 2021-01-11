@@ -28,7 +28,6 @@ func main() {
 		// hex mode flag
 		l = fs.Bool("line", false, "line mode")
 		h = fs.Bool("hex", false, "hex mode")
-	
 	)
 	fs.Parse(os.Args[3:])
 
@@ -76,17 +75,17 @@ func diff(a []byte, b []byte, h bool, l bool) {
 
 }
 
-func filediff(a , b string){
+func filediff(a, b string) {
 	dmp := diffmatchpatch.New()
 
 	diffs := dmp.DiffMain(a, b, false)
 	fmt.Println(dmp.DiffPrettyText(diffs))
 }
 
-func linediff(a , b string)  {
-    dmp := diffmatchpatch.New()
-    a, b, c := dmp.DiffLinesToChars(a, b)
-    diffs := dmp.DiffMain(a, b, false)
-    result := dmp.DiffCharsToLines(diffs, c)
-    fmt.Println(result)
+func linediff(a, b string) {
+	dmp := diffmatchpatch.New()
+	a, b, c := dmp.DiffLinesToChars(a, b)
+	diffs := dmp.DiffMain(a, b, false)
+	result := dmp.DiffCharsToLines(diffs, c)
+	fmt.Println(result)
 }
