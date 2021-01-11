@@ -11,8 +11,6 @@ import (
 	"path/filepath"
 )
 
-var gopherType string
-
 var l bool
 var h bool
 
