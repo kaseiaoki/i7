@@ -26,7 +26,9 @@ func main() {
 	fs := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	var (
 		// hex mode flag
-		h = fs.Bool("hex", false, "First string option")
+		l = fs.Bool("line", false, "line mode")
+		h = fs.Bool("hex", false, "hex mode")
+	
 	)
 	fs.Parse(os.Args[3:])
 
@@ -39,8 +41,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	diff(a, b, *h)
+	fmt.Println(*h, *l, os.Args[3:])
+	diff(a, b, *h, *l)
 
 }
 
@@ -52,7 +54,7 @@ func readfile(path string) ([]byte, error) {
 	return raw, nil
 }
 
-func diff(a []byte, b []byte, h bool) {
+func diff(a []byte, b []byte, h bool, l bool) {
 	// casted a and b
 	var ca = ""
 	var cb = ""
@@ -66,8 +68,25 @@ func diff(a []byte, b []byte, h bool) {
 		cb = string(b)
 	}
 
+	if l {
+		linediff(ca, cb)
+	} else {
+		filediff(ca, cb)
+	}
+
+}
+
+func filediff(a , b string){
 	dmp := diffmatchpatch.New()
 
-	diffs := dmp.DiffMain(ca, cb, false)
+	diffs := dmp.DiffMain(a, b, false)
 	fmt.Println(dmp.DiffPrettyText(diffs))
+}
+
+func linediff(a , b string)  {
+    dmp := diffmatchpatch.New()
+    a, b, c := dmp.DiffLinesToChars(a, b)
+    diffs := dmp.DiffMain(a, b, false)
+    result := dmp.DiffCharsToLines(diffs, c)
+    fmt.Println(result)
 }
