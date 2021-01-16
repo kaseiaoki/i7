@@ -1,4 +1,3 @@
-
 // Copyright © 2019 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +16,10 @@ package cmd
 
 import (
 	"errors"
+	"github.com/kaseiaoki/i7/fileDiff"
+	"github.com/spf13/cobra"
 	"log"
 	"path/filepath"
-	"github.com/spf13/cobra"
-	"github.com/kaseiaoki/i7/fileDiff"
 )
 
 // worldCmd represents the world command
@@ -37,7 +36,7 @@ var diffCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fa := args[0]
 		fb := args[1]
-	
+
 		// file a, file b
 		a, err := fileDiff.ReadFile(filepath.FromSlash(fa))
 		if err != nil {
@@ -47,7 +46,7 @@ var diffCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-	
+
 		fileDiff.Diff(string(a), string(b))
 		return nil
 	},
@@ -65,4 +64,3 @@ func init() {
 	// is called directly, e.g.:
 	// worldCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-

@@ -1,4 +1,3 @@
-
 package fileDiff
 
 import (

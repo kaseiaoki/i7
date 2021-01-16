@@ -24,7 +24,7 @@ import (
 var l5Cmd = &cobra.Command{
 	Use:   "l5",
 	Short: "ls",
-	Long: `ls command option`,
+	Long:  `ls command option`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		return nil
 	},

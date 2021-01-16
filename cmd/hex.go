@@ -1,4 +1,3 @@
-
 // Copyright © 2019 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +15,12 @@
 package cmd
 
 import (
-	"errors"
 	"encoding/hex"
+	"errors"
+	"github.com/kaseiaoki/i7/fileDiff"
+	"github.com/spf13/cobra"
 	"log"
 	"path/filepath"
-	"github.com/spf13/cobra"
-	"github.com/kaseiaoki/i7/fileDiff"
 )
 
 // worldCmd represents the world command
@@ -38,7 +37,7 @@ var hexCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fa := args[0]
 		fb := args[1]
-	
+
 		// file a, file b
 		a, err := fileDiff.ReadFile(filepath.FromSlash(fa))
 		if err != nil {
