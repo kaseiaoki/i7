@@ -60,7 +60,7 @@ type fi struct{ FileInfos }
 func sortFile(fns []os.FileInfo) {
 	for _, fns := range fns {
 		if fns.IsDir() {
-			colorPrint.Out(fns.ModTime().Format("Mon 01/02/06 15:04:05")  + " "  + fns.Name(), "cyan")
+			colorPrint.Out(fns.ModTime().Format("Mon 01/02/06 15:04:05")  + "                      "  + fns.Name(), "cyan")
 		} else {
 			defer colorPrint.Out(timeFmt(fns) + " " + sizeFMT(fns) + " " + fns.Name(), "white")
 		}
