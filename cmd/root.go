@@ -20,6 +20,7 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 
+	"github.com/kaseiaoki/i7/listSegments"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
@@ -33,9 +34,10 @@ func newRootCmd() *cobra.Command {
 		Use:   "i7",
 		Short: "diff comand",
 		Long:  `diff comand --hex file diff in hex --line line diff`,
-		// Uncomment the following line if your bare application
-		// has an action associated with it:
-		// Run: func(cmd *cobra.Command, args []string) { },
+		RunE: func(cmd *cobra.Command, args []string) error {
+			listSegments.Path("")
+			return nil
+		},
 	}
 }
 
@@ -43,7 +45,7 @@ func newRootCmd() *cobra.Command {
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		listSegments.Path("")
 		os.Exit(1)
 	}
 }
