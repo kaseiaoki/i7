@@ -33,7 +33,7 @@ var l5Cmd = &cobra.Command{
 			listSegments.Path(args[0])
 			return
 		}
-		listSegments.Current()
+		listSegments.Path("")
 		return
 	},
 }

@@ -3,19 +3,10 @@ package listSegments
 import (
 	"fmt"
 	"github.com/kaseiaoki/i7/colorPrint"
-	// "io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 )
-
-func Current() {
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	getlist(dir)
-}
 
 func Path(path string) {
 	dir, err := os.Getwd()
@@ -23,10 +14,11 @@ func Path(path string) {
 		log.Fatal(err)
 	}
 	target := filepath.FromSlash(dir + "\\" + path)
-	getlist(target)
+	list := getlist(target)
+	sortFile(list)
 }
 
-func getlist(path string){
+func getlist(path string) (fns []os.FileInfo) {
 	dir, err := os.Open(path)
 	if err != nil { 
 		fmt.Println(err) 
@@ -38,17 +30,23 @@ func getlist(path string){
 		fmt.Println("no dir")
 	}
   
-	fns, err := dir.Readdir(-1) 
+	fns, err = dir.Readdir(-1) 
 	if err != nil { 
 		fmt.Println(err)
 	}
 
+	return fns
+}
+
+type FileInfos []os.FileInfo
+type fi struct{ FileInfos }
+
+func sortFile(fns []os.FileInfo) {
 	for _, fns := range fns {
 		if fns.IsDir() {
 			colorPrint.Out(fns.Name(), "cyan")
 		} else {
-			colorPrint.Out(fns.Name(), "white")
+			defer colorPrint.Out(fns.Name(), "white")
 		}
-
 	}
 }
